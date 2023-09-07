@@ -1,9 +1,11 @@
 {
   "name": "plugin-wp-importer",
-  "version": "0.1.0",
-  "description": "Importer plugin for Wordpress",
-  "private": true,
+  "version": "0.1.1",
+  "description": "Importer plugin for WordPress",
+  "type": "module",
+  "exports": "./index.js",
   "scripts": {
+    "parse:xml": "node --loader ts-node/esm ./src/bin.ts parse:xml",
     "lint": "eslint 'src/**/*.ts' --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx}\" --ignore-path .gitignore",
@@ -14,17 +16,20 @@
     "clean": "rimraf dist"
   },
   "dependencies": {
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "react": "^18.2.0"
+    "@types/node": "^20.5.7",
+    "dayjs": "^1.11.9",
+    "xml2js": "^0.6.2"
   },
   "devDependencies": {
+    "@types/fs-extra": "^11.0.1",
+    "@types/xml2js": "^0.4.11",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "@typescript-eslint/parser": "^6.5.0",
+    "commander": "^11.0.0",
     "cpy-cli": "^5.0.0",
     "eslint": "^8.48.0",
     "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-react": "^7.33.2",
+    "fs-extra": "^11.1.1",
     "prettier": "^3.0.2",
     "rimraf": "^5.0.1",
     "ts-node": "^10.9.1",
