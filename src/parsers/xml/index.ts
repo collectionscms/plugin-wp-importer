@@ -1,5 +1,7 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
+import DOMPurify from "isomorphic-dompurify";
+import { NodeHtmlMarkdown } from "node-html-markdown";
 import xml2js from "xml2js";
 
 dayjs.extend(utc);
@@ -51,6 +53,7 @@ export const parseFromFile = async (
   fileData: string
 ): Promise<WordpressContent> => {
   const parser = new xml2js.Parser();
+  const converter = new NodeHtmlMarkdown();
 
   const data: WordpressContent = {
     title: null,
@@ -66,7 +69,7 @@ export const parseFromFile = async (
   var slugToCategory: Record<string, Category> = {};
   var slugToTag: Record<string, Tag> = {};
 
-  const treatHTML = (html: string) => {
+  const treatHtml = (html: string) => {
     html = html.replace(/\r\n/g, "\n");
     html = html.replace(/\r/g, "\n");
     html = html.replace(
@@ -81,7 +84,7 @@ export const parseFromFile = async (
       return match.replace(/<p>/g, "\n\n");
     });
     html = html.replace(/<p><pre>/g, "<pre>");
-    return html;
+    return DOMPurify.sanitize(html);
   };
 
   const reformatAudioShortCode = (html: string) => {
@@ -108,6 +111,10 @@ export const parseFromFile = async (
       })
       ?.join("");
     return "<video controls>" + sources + "</video>";
+  };
+
+  const convertHtmlToMarkdown = (html: string) => {
+    return converter.translate(html);
   };
 
   const parseCategories = (items: any[]): Category[] => {
@@ -188,7 +195,8 @@ export const parseFromFile = async (
     // Content
     // /////////////////////////////////////
 
-    const content = treatHTML(item["content:encoded"][0]);
+    const contentHtml = treatHtml(item["content:encoded"][0]);
+    const content = convertHtmlToMarkdown(contentHtml);
 
     // /////////////////////////////////////
     // Status
