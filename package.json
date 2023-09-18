@@ -1,6 +1,6 @@
 {
   "name": "plugin-wp-importer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Importer plugin for WordPress",
   "type": "module",
   "exports": "./index.js",
@@ -18,6 +18,8 @@
   "dependencies": {
     "@types/node": "^20.5.7",
     "dayjs": "^1.11.9",
+    "isomorphic-dompurify": "^1.8.0",
+    "node-html-markdown": "^1.3.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
