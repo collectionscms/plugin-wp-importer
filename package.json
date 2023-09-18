@@ -1,6 +1,6 @@
 {
   "name": "plugin-wp-importer",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Importer plugin for WordPress",
   "type": "module",
   "exports": "./index.js",
