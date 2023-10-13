@@ -24,12 +24,12 @@ type Post = {
   content: string;
   status: statusMap;
   slug: string | null;
-  is_page: boolean;
-  published_date: Date | null;
+  isPage: boolean;
+  publishedDate: Date | null;
   categories: Category[];
   tags: Tag[];
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 enum statusMap {
@@ -182,7 +182,7 @@ export const parseFromFile = async (
 
     const post = {
       id: parseInt(item["wp:post_id"], 10),
-      is_page: postType === "page",
+      isPage: postType === "page",
     };
 
     // /////////////////////////////////////
@@ -297,11 +297,11 @@ export const parseFromFile = async (
       status,
       content,
       slug: slug,
-      published_date: pubDate,
+      publishedDate: pubDate,
       categories: postCategories,
       tags: postTags,
-      created_at: postDate,
-      updated_at: modifiedDate,
+      createdAt: postDate,
+      updatedAt: modifiedDate,
     });
   }
 
