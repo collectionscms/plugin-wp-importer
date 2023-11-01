@@ -1,6 +1,6 @@
 {
   "name": "@collectionscms/plugin-wp-importer",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "description": "Wordpress Importer Plugin for Collections",
   "type": "module",
   "exports": "./index.js",
