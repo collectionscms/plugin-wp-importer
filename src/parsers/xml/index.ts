@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc.js";
+import { convert } from "html-to-text";
 import DOMPurify from "isomorphic-dompurify";
 import { NodeHtmlMarkdown } from "node-html-markdown";
 import xml2js from "xml2js";
@@ -22,6 +23,7 @@ type Post = {
   id: number;
   title: string;
   content: string;
+  contentText: string;
   status: statusMap;
   slug: string | null;
   isPage: boolean;
@@ -197,6 +199,7 @@ export const parseFromFile = async (
 
     const contentHtml = treatHtml(item["content:encoded"][0]);
     const content = convertHtmlToMarkdown(contentHtml);
+    const contentText = convert(contentHtml).replace(/\n/g, " ");
 
     // /////////////////////////////////////
     // Status
@@ -296,6 +299,7 @@ export const parseFromFile = async (
       title,
       status,
       content,
+      contentText,
       slug: slug,
       publishedDate: pubDate,
       categories: postCategories,
